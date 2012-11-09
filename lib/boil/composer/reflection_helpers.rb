@@ -18,7 +18,6 @@ module Boil
       end
     
       def constantize_class(class_or_name)
-        puts "constantize_class (#{class_or_name.inspect})"
         begin
           class_or_name.is_a?(String) ? class_or_name.constantize : class_or_name
         rescue NameError

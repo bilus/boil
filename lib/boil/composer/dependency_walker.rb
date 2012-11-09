@@ -1,3 +1,5 @@
+require 'active_support/core_ext/module/introspection'
+
 module Boil
   module Composer
     class DependencyWalker
@@ -33,7 +35,8 @@ module Boil
       end
 
       def class_from_constructor_param(parent_class, constructor_param)
-        constructor_param.to_s.camelize
+        parent_module_name = parent_class.parent.to_s
+        class_name = "#{parent_module_name}::#{constructor_param.to_s.camelize}"
       end
     end
   end

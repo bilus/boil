@@ -1,4 +1,4 @@
-Automatic building of composed objects.
+Automatic building of composed objects using Ruby reflection and meta-programming.
 
 ---
 
@@ -14,7 +14,7 @@ TODO
 Quick start
 -----------
 
-	> gem install composer
+	> gem install boil
 	
 	An example: 
 	
@@ -51,7 +51,8 @@ Quick start
         end
       end
 
-  With different module, you need to explicitly compose:
+  
+  **TBD** With different module, you need to explicitly compose:
   
       module Presenters
         class ReviewSubmissionPresenter
