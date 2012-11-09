@@ -1,33 +1,31 @@
 Automatic construction of interdependent objects using Ruby reflection and meta-programming.
-
 ---
 
-TODO
-----
+The idea is to make it easy to create (usually singleton) objects that depend on objects that depends on objects that depend on objects :) thus creating a dependency tree.
 
-- Interdependent classes in different modules.
+Taking care of dependencies are especially painful for the [presenter-first pattern](http://en.wikipedia.org/wiki/Presenter_First) I used in my [recent project](http://www.criticue.com).
 
----
+Here I'm using the presenter-first pattern as an example but the gem is in no way restricted to that and can be used in any code that depends on instantiation of a tree .
 
 Quick start
 -----------
 
 	> gem install boil
 	
-	An example: 
+Here's a simplified example of a dependency tree: 
 	
-	ReviewSubmissionPresenter
-      ReviewSubmissionView
-      ReviewSubmissionModel
-        ReviewStore
-        ReviewValidationPolicy
-        ReviewResubmissionPolicy
+  	ReviewSubmissionPresenter
+        ReviewSubmissionView
+        ReviewSubmissionModel
+          ReviewStore
+          ReviewValidationPolicy
+          ReviewResubmissionPolicy
+    
+  This means that to create a `ReviewSubmissionPresenter` instance you need to create instances of `ReviewSubmissionView` and `ReviewSubmissionModel` and, in turn, to create `ReviewSubmissionModel` you need to create a `ReviewStore`, `ReviewValidationPolicy` and `ReviewResubmissionPolicy`.
         
   (TODO: insert image of dependency diagram)
 
-  With classes in the global namespace or in the same module, it uses reasonable defaults.
-  
-  Here are the interdependent classes. 
+  The source code of the interdependent classes:
 
       class ReviewSubmissionPresenter
         def initialize(review_submission_view, review_submission_model)
@@ -69,6 +67,8 @@ Quick start
       policy = review_workflow_policy
       
   DISCLAIMER: Obviously, you would not pollute the global scope with factory methods like that, it's just an example. Use it from within a class or module.
+  
+  **TODO** Default values.
   
   **TODO** With classes in different namespaces, you need to explicitly compose:
   
