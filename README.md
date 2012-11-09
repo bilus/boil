@@ -25,7 +25,9 @@ Quick start
         
   (TODO: insert image of dependency diagram)
 
-  With classes in the global namespace or in the same module, it uses reasonable defaults:
+  With classes in the global namespace or in the same module, it uses reasonable defaults.
+  
+  Here are the interdependent classes. 
 
       class ReviewSubmissionPresenter
         def initialize(review_submission_view, review_submission_model)
@@ -48,9 +50,27 @@ Quick start
         # ...
         end
       end
-
+      
+  Notice that constructor argument names correspond to class names.
   
-  **TBD** With different module, you need to explicitly compose:
+  To create a factory method for any of the classes:
+  
+      require 'boil'
+  
+      include Boil::Composer::Builder
+
+      # Creates factory method in the current scope.
+      create_factory_method_for(ReviewSubmissionPresenter) 
+      
+      # Create an instance:
+      presenter = review_submission_presenter
+      
+      # It automatically creates factory methods for all classes ReviewSubmissionPresenter depends on:
+      policy = review_workflow_policy
+      
+  DISCLAIMER: Obviously, you would not pollute the global scope with factory methods like that, it's just an example. Use it from within a class or module.
+  
+  **TODO** With classes in different namespaces, you need to explicitly compose:
   
       module Presenters
         class ReviewSubmissionPresenter
