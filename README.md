@@ -1,13 +1,11 @@
-Automatic building of composed objects using Ruby reflection and meta-programming.
+Automatic construction of interdependent objects using Ruby reflection and meta-programming.
 
 ---
 
 TODO
 ----
 
-- Global namespace.
-- Same module.
-- Different modules.
+- Interdependent classes in different modules.
 
 ---
 
